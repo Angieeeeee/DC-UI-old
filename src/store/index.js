@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ls from '../utils/localStorage'
 import router from '../router'
+import stage from './stage'
 
 Vue.use(Vuex)
 
@@ -29,7 +30,7 @@ const actions = {
     commit('UPDATE_AUTH', true)
     router.push('/dashboard')
   },
-  logout ({commit}) {
+  logout ({ commit }) {
     commit('UPDATE_AUTH', false)
     router.push({ name: 'Home', params: { logout: true } })
   }
@@ -38,7 +39,11 @@ const actions = {
 const store = new Vuex.Store({
   state,
   mutations,
-  actions
+  actions,
+
+  modules: {
+    stage
+  }
 })
 
 export default store
