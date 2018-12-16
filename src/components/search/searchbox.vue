@@ -46,9 +46,20 @@
             />
         </q-field>
     </div>
-    <div>
+    <div class="row">
       <!-- <q-input v-model="selectedstage" /> -->
-      {{resultData}}
+      <!-- {{resultData}} -->
+      <div class="col-4" v-for="item in resultData" :key="item">
+        <q-card>
+          <q-card-title>
+            {{item.name}}
+          </q-card-title>
+          <q-card-separator />
+          <q-card-main>
+            {{item.subject}}
+          </q-card-main>
+        </q-card>
+      </div>
     </div>
 </q-page>
 </template>

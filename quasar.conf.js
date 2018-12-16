@@ -75,7 +75,8 @@ module.exports = function (ctx) {
         'QCheckbox'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [
