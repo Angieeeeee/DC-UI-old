@@ -50,6 +50,30 @@
       <!-- <q-input v-model="selectedstage" /> -->
       {{searchResult}}
     </div>
+    <div class="card">
+      <q-card inline square class="q-ma-sm card-1">
+        <q-card-title>
+          name
+          <span slot="subtitle">Stage:  - Year: </span>
+          <q-btn round flat icon="more_vert" slot="right">
+            <q-popover>
+              <q-list link class="no-border">
+                  <q-item v-close-overlay>
+                    <q-item-main label="Share" />
+                  </q-item>
+                </q-list>
+              </q-popover>
+            </q-btn>
+        </q-card-title>
+        <q-card-main>
+          discription
+        </q-card-main>
+        <q-card-separator />
+        <q-card-actions>
+            <q-btn flat>More</q-btn>
+        </q-card-actions>
+      </q-card>
+</div>
 </q-page>
 </template>
 <script>
@@ -84,8 +108,6 @@ export default {
       if (this.selectedstage) {
         let stageData = this.$store.getters['stage/getStageData']
         if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
-        console.log(stageData)
-        console.log(stageData.data.courses)
       }
     },
     yearsList () {

@@ -72,10 +72,12 @@ module.exports = function (ctx) {
         'QSelect',
         'QField',
         'QChipsInput',
-        'QCheckbox'
+        'QCheckbox',
+        'QPopover'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [
