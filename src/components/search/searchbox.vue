@@ -48,13 +48,13 @@
     </div>
     <div>
       <!-- <q-input v-model="selectedstage" /> -->
-      {{searchResult}}
     </div>
-    <div class="card">
-      <q-card inline square class="q-ma-sm card-1">
-        <q-card-title>
-          name
-          <span slot="subtitle">Stage:  - Year: </span>
+       <div class="card"
+            v-for="item in resultData" :key="item">
+        <q-card inline square class="q-ma-sm card-1">
+          <q-card-title>
+            {{item.name}}
+          <span slot="subtitle">Stage: {{ item.stage }} - Year: {{ item.year }}</span>
           <q-btn round flat icon="more_vert" slot="right">
             <q-popover>
               <q-list link class="no-border">
@@ -66,14 +66,15 @@
             </q-btn>
         </q-card-title>
         <q-card-main>
-          discription
+          {{ item.outcomes.description }}
         </q-card-main>
         <q-card-separator />
         <q-card-actions>
             <q-btn flat>More</q-btn>
         </q-card-actions>
-      </q-card>
-</div>
+        </q-card>
+      </div>
+
 </q-page>
 </template>
 <script>
@@ -90,26 +91,31 @@ export default {
       areas,
       courses,
       stages,
-      years
+      years,
+      resultData: null
     }
   },
   watch: {
     selectedstage (newValue, oldValue) {
-      console.log(years)
+      this.resultData = null
       axios
         .get(`./../../demoData/stage${newValue}/content.json`)
         .then(response => {
           this.$store.commit('stage/setStageData', response)
         })
+    },
+    selectedyear () {
+      let stageData = this.$store.getters['stage/getStageData']
+      if (stageData.data.yrLvls.includes(this.selectedyear)) this.resultData = stageData.data.courses
     }
   },
   computed: {
-    searchResult () {
-      if (this.selectedstage) {
-        let stageData = this.$store.getters['stage/getStageData']
-        if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
-      }
-    },
+    // searchResult () {
+    //   if (this.selectedstage) {
+    //     let stageData = this.$store.getters['stage/getStageData']
+    //     if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
+    //   }
+    // },
     yearsList () {
       if (this.selectedstage) {
         let stageData = this.$store.getters['stage/getStageData']
