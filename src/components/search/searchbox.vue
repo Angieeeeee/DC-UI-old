@@ -48,7 +48,7 @@
     </div>
     <div>
       <!-- <q-input v-model="selectedstage" /> -->
-      {{searchResult}}
+      {{resultData}}
     </div>
 </q-page>
 </template>
@@ -66,26 +66,32 @@ export default {
       areas,
       courses,
       stages,
-      years
+      years,
+
+      resultData: null
     }
   },
   watch: {
     selectedstage (newValue, oldValue) {
-      console.log(years)
+      this.resultData = null
       axios
         .get(`./../../demoData/stage${newValue}/content.json`)
         .then(response => {
           this.$store.commit('stage/setStageData', response)
         })
+    },
+    selectedyear () {
+      let stageData = this.$store.getters['stage/getStageData']
+      if (stageData.data.yrLvls.includes(this.selectedyear)) this.resultData = stageData.data.courses
     }
   },
   computed: {
-    searchResult () {
-      if (this.selectedstage) {
-        let stageData = this.$store.getters['stage/getStageData']
-        if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
-      }
-    },
+    // searchResult () {
+    //   if (this.selectedstage && this.selectedyear) {
+    //     let stageData = this.$store.getters['stage/getStageData']
+    //     if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
+    //   }
+    // },
     yearsList () {
       if (this.selectedstage) {
         let stageData = this.$store.getters['stage/getStageData']
