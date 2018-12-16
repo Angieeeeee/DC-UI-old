@@ -85,6 +85,8 @@ export default {
       if (this.selectedstage) {
         let stageData = this.$store.getters['stage/getStageData']
         if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
+        console.log(stageData)
+        console.log(stageData.data.courses)
       }
     }
   }

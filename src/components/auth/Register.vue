@@ -72,23 +72,23 @@
 <script>
 // import createCaptcha from '../../utils/createCaptcha'
 // import ls from '../../utils/localStorage'
-import { required, sameAs, email } from "vuelidate/lib/validators";
+import { required, sameAs, email } from 'vuelidate/lib/validators'
 
 export default {
-  data() {
+  data () {
     return {
-      email: "",
+      email: '',
       // captchaTpl: '',
-      password: "",
-      cpassword: ""
+      password: '',
+      cpassword: ''
       // captcha: ''
-    };
+    }
   },
   validations: {
     email: { required, email },
     password: { required },
     cpassword: {
-      sameAsPassword: sameAs("password")
+      sameAsPassword: sameAs('password')
     }
   },
   // created () {
@@ -101,17 +101,17 @@ export default {
     //   this.localCaptcha = captcha
     // },
     //  Register
-    register(e) {
+    register (e) {
       this.$nextTick(() => {
         const target =
-          e.target.type === "submit" ? e.target : e.target.parentElement;
+          e.target.type === 'submit' ? e.target : e.target.parentElement
         if (target.canSubmit) {
-          this.submit();
+          this.submit()
         }
-      });
+      })
     },
     // provide data to local storage
-    submit() {
+    submit () {
       // check picture
       // if (this.captcha.toUpperCase() !== this.localCaptcha) {
       //   this.getCaptcha()
@@ -121,25 +121,25 @@ export default {
         name: this.email,
         password: this.password,
         avatar: `https://api.adorable.io/avatars/200/${this.username}.png`
-      };
-      console.log(user);
-      const localUser = this.$store.state.user;
+      }
+      console.log(user)
+      const localUser = this.$store.state.user
       if (localUser) {
         if (localUser.name === user.name) {
           // this.showMsg('User name exist')
         } else {
-          this.login(user);
+          this.login(user)
         }
       } else {
-        this.login(user);
+        this.login(user)
       }
       // }
     },
-    login(user) {
-      this.store.dispatch("login", user);
+    login (user) {
+      this.store.dispatchm('login', user)
     }
   }
-};
+}
 </script>
 <style scoped>
 .background {
