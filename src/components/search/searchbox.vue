@@ -46,10 +46,15 @@
             />
         </q-field>
     </div>
+    <div>
+      <!-- <q-input v-model="selectedstage" /> -->
+      {{searchResult}}
+    </div>
 </q-page>
 </template>
 <script>
 import {areas, courses, stages, years} from '../../data'
+import axios from 'axios'
 
 export default {
   data: () => {
@@ -61,9 +66,43 @@ export default {
       areas,
       courses,
       stages,
-      years
+      years,
+
+      demoData: null
+    }
+  },
+  watch: {
+    selectedstage (newValue, oldValue) {
+      axios
+        .get(`./../../demoData/stage${newValue}/content.json`)
+        .then(response => {
+          this.$store.commit('stage/setStageData', response)
+        })
+    }
+  },
+  computed: {
+    searchResult () {
+      if (this.selectedstage) {
+        let stageData = this.$store.getters['stage/getStageData']
+        if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
+      }
     }
   }
+  // methods: {
+  //   searchResult () {
+  //     if (this.selectedstage) {
+  //       let data = this.$store.getters['stage/getStageData']
+  //       return data
+  //     }
+  //   }
+  // }
+  // created () {
+  //   axios
+  //     .get('./../../demoData/stage5.json')
+  //     .then(response => {
+  //       this.$store.commit('stage/setStageData', response)
+  //     })
+  // }
 }
 </script>
 <style scoped>
