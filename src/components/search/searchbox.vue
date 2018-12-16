@@ -42,7 +42,7 @@
             chips
             color="deep-purple"
             v-model="selectedyear"
-            :options="years"
+            :options="yearsList"
             />
         </q-field>
     </div>
@@ -66,13 +66,12 @@ export default {
       areas,
       courses,
       stages,
-      years,
-
-      demoData: null
+      years
     }
   },
   watch: {
     selectedstage (newValue, oldValue) {
+      console.log(years)
       axios
         .get(`./../../demoData/stage${newValue}/content.json`)
         .then(response => {
@@ -86,6 +85,14 @@ export default {
         let stageData = this.$store.getters['stage/getStageData']
         if (stageData.data.yrLvls.includes(this.selectedyear)) return stageData.data.courses
       }
+    },
+    yearsList () {
+      if (this.selectedstage) {
+        let stageData = this.$store.getters['stage/getStageData']
+        let a = years.filter(el => el.value === stageData.data.yrLvls[0] || el.value === stageData.data.yrLvls[1])
+        return a
+      }
+      return years
     }
   }
   // methods: {
