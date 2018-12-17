@@ -4,6 +4,7 @@
         <q-field
             icon="fas fa-book-open"
             label="Select a learning area"
+            :label-width="4"
         >
             <q-select
             chips
@@ -15,6 +16,7 @@
         <q-field
             icon="fas fa-balance-scale"
             label="Pick a subject"
+            :label-width="4"
         >
             <q-select
             chips
@@ -26,6 +28,7 @@
         <q-field
             icon="fas fa-school"
             label="Choses a stage"
+            :label-width="4"
         >
             <q-select
             chips
@@ -37,6 +40,7 @@
         <q-field
             icon="fas fa-chalkboard"
             label="Choses a year"
+            :label-width="4"
         >
             <q-select
             chips
@@ -46,18 +50,32 @@
             />
         </q-field>
     </div>
-    <div class="row">
+    <div class="row list">
       <!-- <q-input v-model="selectedstage" /> -->
       <!-- {{resultData}} -->
-      <div class="col-4" v-for="item in resultData" :key="item">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 q-ma-sm one-card" v-for="item in resultData" :key="item">
         <q-card>
-          <q-card-title>
+          <q-card-title class="text-deep-purple-4">
             {{item.name}}
+            <span slot="subtitle">Stage: {{ selectedstage }} - Year: {{ selectedyear }}</span>
+            <q-btn round flat icon="more_vert" slot="right" color='deep-purple-4'>
+              <q-popover>
+              <q-list link class="no-border">
+                  <q-item v-close-overlay>
+                    <q-item-main label="Share"/>
+                  </q-item>
+                </q-list>
+              </q-popover>
+            </q-btn>
           </q-card-title>
           <q-card-separator />
           <q-card-main>
-            {{item.subject}}
+            {{item.focus}}
           </q-card-main>
+          <q-card-separator />
+          <q-card-actions>
+            <q-btn flat color='deep-purple-4' :to="'/scope&sequnce/'+ item.name">Get more information</q-btn>
+        </q-card-actions>
         </q-card>
       </div>
     </div>
@@ -68,6 +86,7 @@ import {areas, courses, stages, years} from '../../data'
 import axios from 'axios'
 
 export default {
+  props: ['item'],
   data: () => {
     return {
       selectedarea: '',
@@ -78,7 +97,6 @@ export default {
       courses,
       stages,
       years,
-
       resultData: null
     }
   },
@@ -132,5 +150,20 @@ export default {
 <style scoped>
 .searchbox {
     margin: 100px 300px 0 300px
+}
+.list {
+  margin: 50px 200px 0 200px
+}
+.one-card {
+  width: 48.3%;
+  height: 300px;
+}
+.q-card {
+  height: 300px;
+}
+.q-card-main {
+  height: 160px;
+  text-align: justify;
+  overflow-y: scroll;
 }
 </style>

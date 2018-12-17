@@ -8,7 +8,14 @@ const routes = [
       { path: '/register', component: () => import('components/auth/Register.vue') },
       { path: '/login', name: 'login', component: () => import('components/auth/Login.vue') },
       { path: '/dashboard', component: () => import('components/Dashboard.vue') },
-      { path: '/scope&sequnce', component: () => import('components/search/SearchLayout.vue') }
+      { path: '/scope&sequnce',
+        component: () => import('components/search/SearchLayout.vue')
+        // children: [
+        //   { path: '/:course', component: () => import('components/search/Subject.vue') }
+        // ]
+      },
+      { path: '/scope&sequnce/:item', component: () => import('components/courses/Subject.vue'), props: true },
+      { path: '/coursesummary', component: () => import('components/summary/CourseSummary.vue') }
     ]
   }
 ]
