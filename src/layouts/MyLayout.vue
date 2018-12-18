@@ -173,4 +173,8 @@ body {
   display: flex;
   justify-content: center */
 }
+#particles-js{
+  height: 1000px;
+  width: 100%
+}
 </style>

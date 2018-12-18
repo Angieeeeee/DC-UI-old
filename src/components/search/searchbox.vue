@@ -53,8 +53,8 @@
     <div class="row list">
       <!-- <q-input v-model="selectedstage" /> -->
       <!-- {{resultData}} -->
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 q-ma-sm one-card" v-for="item in resultData" :key="item">
-        <q-card>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 one-card" v-for="item in resultData" :key="item">
+        <q-card inline square class="q-ma-sm">
           <q-card-title class="text-deep-purple-4">
             {{item.name}}
             <span slot="subtitle">Stage: {{ selectedstage }} - Year: {{ selectedyear }}</span>
@@ -154,12 +154,8 @@ export default {
 .list {
   margin: 50px 200px 0 200px
 }
-.one-card {
-  width: 48.3%;
-  height: 300px;
-}
 .q-card {
-  height: 300px;
+  height: auto;
 }
 .q-card-main {
   height: 160px;
