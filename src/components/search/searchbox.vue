@@ -1,6 +1,9 @@
 <template>
 <q-page>
-    <div class=searchbox>
+  <div class="search">
+  <p><b>Choose Learning area, Subject, Stage and Year to get the courses information</b></p>
+  </div>
+    <div class="searchbox">
         <q-field
             icon="fas fa-book-open"
             label="Select a learning area"
@@ -53,7 +56,7 @@
     <div class="row list">
       <!-- <q-input v-model="selectedstage" /> -->
       <!-- {{resultData}} -->
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 one-card" v-for="item in resultData" :key="item">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 one-card" v-for="item in resultData" :key="item">
         <q-card inline square class="q-ma-sm">
           <q-card-title class="text-deep-purple-4">
             {{item.name}}
@@ -74,7 +77,9 @@
           </q-card-main>
           <q-card-separator />
           <q-card-actions>
-            <q-btn flat color='deep-purple-4' :to="'/scope&sequnce/'+ item.name">Get more information</q-btn>
+            <q-btn flat color='deep-purple-4'>
+              <router-link style="text-decoration: none; color:#9575cd" :to="{name: 'subject', params: {item, selectedstage}}">Get more information</router-link>
+            </q-btn>
         </q-card-actions>
         </q-card>
       </div>
@@ -86,7 +91,6 @@ import {areas, courses, stages, years} from '../../data'
 import axios from 'axios'
 
 export default {
-  props: ['item'],
   data: () => {
     return {
       selectedarea: '',
@@ -97,21 +101,29 @@ export default {
       courses,
       stages,
       years,
-      resultData: null
+      resultData: null,
+      info: null
     }
   },
   watch: {
+    // selectedarea (newArea) {
+    //   axios
+    //     .get()
+    // },
     selectedstage (newValue, oldValue) {
-      this.resultData = null
       axios
         .get(`./../../demoData/stage${newValue}/content.json`)
+        // .get(`./../../demoData/stage${newValue}/overview.json`)
         .then(response => {
           this.$store.commit('stage/setStageData', response)
+          this.resultData = response.data.courses
         })
     },
     selectedyear () {
       let stageData = this.$store.getters['stage/getStageData']
-      if (stageData.data.yrLvls.includes(this.selectedyear)) this.resultData = stageData.data.courses
+      if (stageData.data.yrLvls.includes(this.selectedyear)) {
+        this.resultData = stageData.data.courses
+      }
     }
   },
   computed: {
@@ -129,7 +141,12 @@ export default {
       }
       return years
     }
-  }
+  },
+  // methods() {
+  //   axios
+  //     .get('.json')
+  //     .then(response => (this.info = response))
+  // }
   // methods: {
   //   searchResult () {
   //     if (this.selectedstage) {
@@ -138,18 +155,23 @@ export default {
   //     }
   //   }
   // }
-  // created () {
+  created () {
+    axios
+      .get('./../../demoData/stage5.json')
+      .then(response => {
+        this.$store.commit('stage/setStageData', response)
+      })
+  }
+  // mounted (selectedstage) {
   //   axios
-  //     .get('./../../demoData/stage5.json')
-  //     .then(response => {
-  //       this.$store.commit('stage/setStageData', response)
-  //     })
+  //     .get(`./../../demoData/stage${selectedstage}/overview.json`)
+  //     .then(response => (this.info = response))
   // }
 }
 </script>
 <style scoped>
 .searchbox {
-    margin: 100px 300px 0 300px
+    margin: 50px 300px 0 300px
 }
 .list {
   margin: 50px 200px 0 200px
@@ -158,8 +180,15 @@ export default {
   height: auto;
 }
 .q-card-main {
-  height: 160px;
+  height: auto;
   text-align: justify;
-  overflow-y: scroll;
+}
+.search p {
+    font-size: 18px;
+    color: grey
+}
+.search{
+  margin-top: 50px;
+  text-align: center
 }
 </style>

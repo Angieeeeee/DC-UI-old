@@ -14,8 +14,9 @@ const routes = [
         //   { path: '/:course', component: () => import('components/search/Subject.vue') }
         // ]
       },
-      { path: '/scope&sequnce/:item', component: () => import('components/courses/Subject.vue'), props: true },
-      { path: '/coursesummary', component: () => import('components/summary/CourseSummary.vue') }
+      { path: '/coursedetail', name: 'subject', component: () => import('components/courses/subject.vue'), props: true },
+      { path: '/coursesummary', component: () => import('components/summary/CourseSummary.vue') },
+      { path: '/courseplaner', name: 'courseplaner', component: () => import('components/courseplan/CourseLayout.vue'), props: true }
     ]
   }
 ]

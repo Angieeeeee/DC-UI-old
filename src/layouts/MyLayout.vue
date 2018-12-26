@@ -1,4 +1,5 @@
 <template>
+<div class="body">
   <q-layout view="hHh Lpr lFf">
     <q-layout-header style="box-shadow:none">
       <q-toolbar
@@ -26,7 +27,7 @@
 
     <q-layout-drawer
       v-model="leftDrawerOpen"
-      :content-class="['bg-transparent', 'q-pa-sm']"
+      :content-class="['bg-whitesmoke', 'q-pa-sm']"
     >
       <q-list
         no-border
@@ -44,9 +45,9 @@
           <q-item-side icon="fas fa-graduation-cap" />
           <q-item-main label="Scope & Sequence" />
         </q-item>
-        <q-item @click.native="$router.push('/')">
+        <q-item @click.native="$router.push('/coursesummary')">
           <q-item-side icon="fas fa-republican" />
-          <q-item-main label="Video" />
+          <q-item-main label="Course Summary" />
         </q-item>
         <!--
         <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
@@ -64,7 +65,6 @@
         -->
       </q-list>
     </q-layout-drawer>
-    <div class="banner">
     <q-page-container>
       <transition :name="transitionName" mode="out-in">
          <keep-alive>
@@ -75,7 +75,7 @@
           <router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>
       </transition>
     </q-page-container>
-      <vue-particles
+     <vue-particles
         color="#dedede"
         :particleOpacity="1"
         :particlesNumber="100"
@@ -91,9 +91,9 @@
         hoverMode="grab"
         :clickEffect="true"
         clickMode="push">
-      </vue-particles>
-      </div>
+    </vue-particles>
   </q-layout>
+</div>
 </template>
 
 <script>
@@ -139,7 +139,10 @@ body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 16px;
 }
-
+.body {
+  height: 100%;
+  width: 100%;
+}
 .child-view {
    position: absolute;
    width:100%;
@@ -164,14 +167,6 @@ body {
 }
 .fa-republican {
   color: rgb(152, 90, 194)
-}
-.vue-particles {
-  height: 100%
-}
-.banner {
-  /* position: relative;
-  display: flex;
-  justify-content: center */
 }
 #particles-js{
   height: 1000px;

@@ -1,6 +1,10 @@
 <template>
     <div class="">
         <div class="coursedetail">
+            <div class="right-btn">
+                <q-btn push icon="lightbulb_outline" align="between" label="lesson plan" color="deep-purple-9" :to="{name:'courseplaner',params: {item, selectedstage}}">
+            </q-btn>
+            </div>
         <div class="row">
             <div class="col-xs-12 col-zdlg-2-5">
                 <q-btn
@@ -49,12 +53,17 @@
             </div>
         </div>
             <div style="margin-top:80px">
-            <h5><b>Course Name: {{ $route.params.item }}</b></h5>
+            <h5><b>Course Name: {{ item.name }}</b></h5>
             <hr>
             </div>
-            <div>
+            <div class="courseinfo">
             <transition name="component-fade" mode="out-in">
-                <component :is="selectedComponent"></component>
+                <component
+                    :is="selectedComponent"
+                    :item="item"
+                    :overviewData="overviewData"
+                    >
+                </component>
             </transition>
             </div>
         </div>
@@ -67,8 +76,10 @@ import Concept from './Concept.vue'
 import Outcomes from './Outcomes.vue'
 import Skills from './Skills.vue'
 import Tools from './Tools.vue'
+import axios from 'axios'
 
 export default {
+  props: ['item', 'selectedstage'],
   components: {
     appCourse: Course,
     appConcept: Concept,
@@ -78,8 +89,17 @@ export default {
   },
   data: () => {
     return {
-      selectedComponent: 'appCourse'
+      selectedComponent: 'appCourse',
+      info: null
     }
+  },
+  created (selectedstage) {
+    axios.get(`./../../demoData/stage${selectedstage}/overview.json`)
+      .then(res => {
+        this.$store.commit('stage/setStageData', res)
+        console.log(res)
+      })
+      .catch(error => console.log(error))
   }
 }
 </script>
@@ -96,7 +116,7 @@ h5 {
 }
 @media (min-width: 1200px) {
     .col-zdlg-2-5 {
-        float: left;
+        float:left;
         width:20%;
     }
 }
@@ -105,5 +125,13 @@ h5 {
 }
 .component-fade-enter, .component-fade-leave-to {
   opacity: 0;
+}
+.courseinfo {
+    text-align: justify
+}
+.right-btn{
+    position:fixed;
+    bottom: -4px;
+    right: 10px
 }
 </style>

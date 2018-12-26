@@ -68,6 +68,12 @@
     </div>
 </template>
 
+<script>
+export default {
+  props: ['overviewData']
+}
+</script>
+
 <style scoped>
 h6{
     margin-bottom: 20px;

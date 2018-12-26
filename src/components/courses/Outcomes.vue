@@ -1,23 +1,26 @@
 <template>
     <div>
         <h6><b>Outcomes</b></h6>
-            <div class="outcome-list">
+            <div class="outcome-list" v-for="outcome in item.outcomes" :key="outcome">
                 <q-list>
+                    <!--
                     <q-list-header>
                         A student:
                     </q-list-header>
+                    -->
                 <q-item>
                     <q-item-side>
                         <q-item-tile>
-                            GE5-2
+                            {{outcome.id}}
                         </q-item-tile>
                     </q-item-side>
                     <q-item-main>
-                        Explains processes and influences that form and transform places and environments
+                        A student {{outcome.description}}
                     </q-item-main>
                 </q-item>
                 <q-item-separator inset/>
-                                <q-item>
+                <!--
+                    <q-item>
                     <q-item-side>
                         <q-item-tile>
                             GE5-3
@@ -61,17 +64,19 @@
                     </q-item-main>
                 </q-item>
                 <q-item-separator inset/>
+                -->
                 </q-list>
             </div>
             <h6><b>Related Life Skills outcomes</b></h6>
             <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 skill-outcome">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 skill-outcome" v-for="lifeskills in item.lifeskills_outcomes" :key="lifeskills">
                 <q-card inline class="q-ma-sm">
                     <q-card-main>
-                        GELS-1
+                        {{lifeskills}}
                     </q-card-main>
                 </q-card>
             </div>
+            <!--
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 skill-outcome">
             <q-card inline class="q-ma-sm">
                 <q-card-main>
@@ -100,9 +105,16 @@
                 </q-card-main>
             </q-card>
             </div>
+            -->
             </div>
     </div>
 </template>
+
+<script>
+export default {
+  props: ['item']
+}
+</script>
 
 <style scoped>
 h6{
