@@ -1,9 +1,6 @@
 <template>
-<div class="body">
-  <q-layout view="hHh Lpr lFf">
-    <app-header></app-header>
-    <!--
-    <q-layout-header style="box-shadow:none">
+    <div>
+            <q-layout-header style="box-shadow:none">
       <q-toolbar
         color="deep-purple-9"
         :inverted="$q.theme === 'mat' & 'ios'"
@@ -51,6 +48,7 @@
           <q-item-side icon="fas fa-republican" />
           <q-item-main label="Course Summary" />
         </q-item>
+        <!--
         <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
           <q-item-side icon="chat" />
           <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
@@ -63,50 +61,18 @@
           <q-item-side icon="rss feed" />
           <q-item-main label="Twitter" sublabel="@quasarframework" />
         </q-item>
+        -->
       </q-list>
     </q-layout-drawer>
-    -->
-    <q-page-container>
-      <transition :name="transitionName" mode="out-in">
-         <keep-alive>
-           <router-view v-if="$route.meta.keepAlive" class="child-view"></router-view>
-         </keep-alive>
-      </transition>
-      <transition :name="transitionName" mode="out-in">
-          <router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>
-      </transition>
-    </q-page-container>
-     <vue-particles
-        color="#dedede"
-        :particleOpacity="1"
-        :particlesNumber="100"
-        shapeType="polygon"
-        :particleSize="4"
-        linesColor="#dedede"
-        :linesWidth="1.5"
-        :lineLinked="true"
-        :lineOpacity="0.8"
-        :linesDistance="150"
-        :moveSpeed="3"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push">
-    </vue-particles>
-  </q-layout>
-</div>
+    </div>
 </template>
 
 <script>
-// import { openURL } from 'quasar'
-// import Entry from '../components/Entry.vue'
-import Header from './Header.vue'
-
+import Entry from '../components/Entry.vue'
 export default {
   name: 'MyLayout',
   components: {
-  //   appEntry: Entry
-    appHeader: Header
+    appEntry: Entry
   },
   data () {
     return {
@@ -131,48 +97,3 @@ export default {
   // }
 }
 </script>
-
-<style>
-body {
-  /* font-family:Arial,Helvetica,sans-serif;
-  font-size:100%; */
-  height: 100%;
-  width: 100%;
-  background-color:whitesmoke;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 16px;
-}
-.body {
-  height: 100%;
-  width: 100%;
-}
-.child-view {
-   position: absolute;
-   width:100%;
-   transition: all .5s cubic-bezier(.55,0,.1,1);
-}
-.slide-left-enter, .slide-right-leave-active {
-   opacity: 0;
-   -webkit-transform: translate(50px, 0);
-   transform: translate(50px, 0);
-}
-.slide-left-leave-active, .slide-right-enter {
-   opacity: 0;
-   -webkit-transform: translate(-50px, 0);
-   transform: translate(-50px, 0);
-}
-/* Logo */
-.fa-reddit {
-  color: #9575cd;
-}
-.fa-graduation-cap{
-  color: rgb(119, 83, 185)
-}
-.fa-republican {
-  color: rgb(152, 90, 194)
-}
-#particles-js{
-  height: 1000px;
-  width: 100%
-}
-</style>
