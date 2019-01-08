@@ -48,6 +48,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: ['editor']
+}
+</script>
+
 <style scoped>
 .editor{
     margin-top: 50px

@@ -76,7 +76,8 @@ module.exports = function (ctx) {
         'QPopover',
         'QItemSeparator',
         'QItemTile',
-        'QEditor'
+        'QEditor',
+        'QTooltip'
       ],
       directives: [
         'Ripple',
